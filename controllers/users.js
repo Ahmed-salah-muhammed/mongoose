@@ -21,7 +21,7 @@ export async function getUserById(req, res, next) {
   try {
     const user = await Users.findOne({ _id: req.params.id });
 
-    return res.send(user);
+    res.json(user);
   } catch (err) {
     next(err);
   }
@@ -32,7 +32,7 @@ export async function createUser(req, res, next) {
   try {
     const newUser = await Users.create(req.body);
 
-    return res.send(newUser);
+    res.json(newUser);
   } catch (err) {
     next(err);
   }
@@ -47,7 +47,7 @@ export async function updateUserById(req, res, next) {
       { new: true },
     );
 
-    return res.send(newUser);
+    res.json(updatedUser);
   } catch (err) {
     next(err);
   }
@@ -58,9 +58,9 @@ export async function deletedUserById(req, res, next) {
   try {
     const deletedUser = await Users.findOneAndDelete({ _id: req.params.id });
     if (!deletedUser) {
-      res.status(404).send("user not found");
+      return res.status(404).json("user not found");
     }
-    return res.send(deletedUser);
+    res.json(deletedUser);
   } catch (err) {
     next(err);
   }

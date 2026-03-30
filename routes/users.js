@@ -11,14 +11,14 @@ const router = Router();
 
 // Routes
 
-router.get("/usres", getUsers);
+router.get("/users", getUsers);
 
-router.get("/usres/:id", getUserById);
+router.get("/users/:id", getUserById);
 
-router.post("/usres", createUser);
+router.post("/users", createUser);
 
-router.put("/usres", updateUserById);
+router.put("/users/:id", updateUserById);
 
-router.delete("/usres", deletedUserById);
+router.delete("/users/:id", deletedUserById);
 
 export default router;

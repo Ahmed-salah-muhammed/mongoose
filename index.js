@@ -12,7 +12,7 @@ mongoose
   .then(() => console.log("connected to MongoDB"))
   .catch((err) => console.log(err));
 
-app.use(express.json);
+app.use(express.json());
 app.use("/api", router);
 
 app.get("/", (req, res) => {
