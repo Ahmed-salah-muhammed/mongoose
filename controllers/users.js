@@ -3,26 +3,14 @@ import Users from "../models/users.js";
 // get all with pagination
 export async function getUsers(req, res, next) {
   try {
-    // query params
     const page = +req.query.page || 1;
     const limit = +req.query.limit || 10;
 
-    // skip logic
-    const skip = (page - 1) * limit;
+    const users = await Users.find()
+      .skip((page - 1) * limit)
+      .limit(limit);
 
-    // data
-    const users = await Users.find({}).skip(skip).limit(limit);
-
-    // total count
-    const total = await Users.countDocuments();
-
-    return res.json({
-      page,
-      limit,
-      total,
-      totalPages: Math.ceil(total / limit),
-      data: users,
-    });
+    res.json(users);
   } catch (err) {
     next(err);
   }
