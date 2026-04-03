@@ -5,9 +5,15 @@ export async function getUsers(req, res, next) {
   try {
     const page = +req.query.page || 1;
     const limit = +req.query.limit || 10;
+    const skip = (page - 1) * limit
+
+    if (req.query.page){
+      const numUsers = await Users.countDocuments()
+      if(skip> numUsers) throw new Error("this page does not exist!)
+    }
 
     const users = await Users.find()
-      .skip((page - 1) * limit)
+      .skip(skip)
       .limit(limit);
 
     res.json(users);
